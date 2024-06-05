@@ -48,8 +48,8 @@ The script automatically checks for the necessary packages and installs them if 
    - Click on the "Run" button in RStudio to execute the script.
    - When you run the script, it will prompt you to select an Excel file. Ensure your Excel file has at least the following three columns:
 
-      - id: Unique identifier for each node.
-      - from: Identifier of the node from which the current node originates.
+      - id: Unique identifier for each node. Can be numeric or a string. IDs must be unique for each row.
+      - from: Identifier of the node from which the current node originates. Must match an ID present in the id columns.
       - name: Name or label of the node.
    
    - The HTML file containing the flow chart will be generated in the same directory as the input file.
