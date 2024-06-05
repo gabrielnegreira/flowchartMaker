@@ -1,6 +1,6 @@
 # Flow Chart Maker
 
-Flow Chart Maker is a simple R script that builds interactive flow charts using the `VisNetwork` package. It takes an input Excel file with at least three columns: `id`, `from`, and `name`. Users can add as many extra columns as they wish, and the information in these columns will be displayed as a popup when hovering over a node in the flow chart.
+Flow Chart Maker is a simple R script that builds interactive flow charts using the `VisNetwork` package. It takes an input Excel file with at least three columns: `id`, `from`, and `name`. Users can add as many extra columns as they wish, and the information in these columns will be displayed as a popup when hovering over a node in the flow chart. The script will output an interactive flow chart in html format which can be opened and explored in any standard web browser. 
 
 ## Features
 
