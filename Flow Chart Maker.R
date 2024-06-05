@@ -3,12 +3,16 @@
 #input must be an excel file with at least 3 columns named "id", "from" and "name".
 
 #parameter
+
+#get the variables which are already loaded in the environment so they are not removed at the end
+to_keep <- ls(envir=parent.frame())
+
 save_chart <- TRUE #if TRUE, will save the flow chart in the current working directory. If FALSE, will display the chart in the Viewer tab instead. 
-clean_environment <- TRUE #if TRUE, will remove all dataframes, variables, etc, after the code is run.
+clean_environment <- FALSE #if TRUE, will remove all dataframes, variables, etc, after the code is run.
+color_by <- NA #Set to a string with the name of the column to use to color nodes or set it to NA. 
 
 #Installing libraries if needed:
-packages <- c("dplyr", "tidyr",
-              "stringr", "readr", "visNetwork", "readxl")
+packages <- c("tidyverse", "stringr", "readr", "visNetwork", "readxl")
 
 ## Now load or install&load all
 package.check <- lapply(
@@ -69,6 +73,13 @@ if(!exists("nodes")){
   nodes$title <- make_title(nodes)
   nodes$label <- nodes$name
   
+  if(tolower(color_by) %in% tolower(colnames(nodes))){
+    column <- which(tolower(colnames(nodes)) == tolower(color_by))
+    nodes <- cbind(nodes, nodes[,column])
+    colnames(nodes)[length(colnames(nodes))] <- "group"
+    rm(column)
+  }
+  
   #building edge list
   edges <- data.frame(cbind(nodes$from, nodes$id))
   colnames(edges) <- c("from", "to")
@@ -83,7 +94,8 @@ if(!exists("nodes")){
   
   #making the chart
   if(save_chart){
-    path <- paste(getwd(),"/",file_name, "_flow_chart.html", sep = "")
+    #get the path where input file was so output graph is saved in the same place
+    path <- paste(dirname(input_file),"/",file_name, "_flow_chart.html", sep = "")
     visNetwork(nodes = nodes, edges = edges, width = "100%", height = "85vh", main = flow_name)%>%
       visNodes(shape = "box",physics = FALSE, color = list(background = "lightblue", border = "black", highlight = "orange", hover = list(background = "#037ca1", border = "black")), widthConstraint = list(maximum = 220), margin = 15, labelHighlightBold = TRUE, scaling = list(label = list(drawThreshold = 1)))%>%
       visEdges(physics = FALSE, smooth = FALSE, width = 4, color = "black", arrowStrikethrough = FALSE, font = list(size = 32, color = "white", strokeColor = "black", strokeWidth = 8))%>%
@@ -93,9 +105,9 @@ if(!exists("nodes")){
       visEvents(type = "once", beforeDrawing = "function() {this.moveTo({scale:0.05})}")%>%
       visExport() %>%
       visSave(path)
-    print("Flow chart saved in the current working directory.")
+    print(paste("Flow chart saved at", path))
   }else{
-    visNetwork(nodes = nodes, edges = edges, width = "100%", height = "85vh", main = flow_name)%>%
+    visNetwork(nodes = nodes, edges = edges, main = flow_name)%>%
       visNodes(shape = "box",physics = FALSE, color = list(background = "lightblue", border = "black", highlight = "orange", hover = list(background = "#037ca1", border = "black")), widthConstraint = list(maximum = 220), margin = 15, labelHighlightBold = TRUE, scaling = list(label = list(drawThreshold = 1)))%>%
       visEdges(physics = FALSE, smooth = FALSE, width = 4, color = "black", arrowStrikethrough = FALSE, font = list(size = 32, color = "white", strokeColor = "black", strokeWidth = 8))%>%
       visHierarchicalLayout(levelSeparation = 150, nodeSpacing = 260, treeSpacing = 300, direction = "UD", sortMethod = "directed")%>%
@@ -106,16 +118,5 @@ if(!exists("nodes")){
   }
 }
 if(clean_environment){
-  suppressWarnings(rm(input_file))
-  suppressWarnings(rm(nodes))
-  suppressWarnings(rm(edges))
-  suppressWarnings(rm(file_name))
-  suppressWarnings(rm(flow_name))
-  suppressWarnings(rm(nodes_size))
-  suppressWarnings(rm(packages))
-  suppressWarnings(rm(path))
-  suppressWarnings(rm(save_chart))
-  suppressWarnings(rm(clean_environment))
-  suppressWarnings(rm(package.check))
-  suppressWarnings(rm(make_title))
+  suppressWarnings(rm(list = ls(envir=parent.frame())[which(!ls(envir=parent.frame()) %in% to_keep)]))
 }
