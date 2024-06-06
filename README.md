@@ -27,12 +27,21 @@ To use the Flow Chart Maker script, you need to have R and RStudio installed on 
 ### Install Required R Packages
 
 The script automatically checks for the necessary packages and installs them if they are not already installed.
+If you get the following warning:
+
+> ```warning
+> Warning in install.packages: unable to access index for repository
+> http://cran.rstudio.com/src/contrib: cannot open URL
+> ```
+
+You might be behind a firewall that is preventing RStudio to access the CRAN repositories. As a workaround, you can change secure connection settings. 
+Go to Tools -> Global Options -> Packages-> Management Tab-> Uncheck "Use secure download method for HTTP"
 
 ## Usage
 
 1. **Download the repository:**
 
-   - Go to the [GitHub repository page](https://github.com/yourusername/FlowChartMaker):
+   - Go to the [GitHub repository page](https://github.com/gabrielnegreira/flowchartMaker/):
    - Click on the green "Code" button.
    - Select "Download ZIP".
    - Extract the downloaded ZIP file to a directory on your computer.
