@@ -36,7 +36,7 @@ If you get the following warning:
 
 You might be behind a firewall that is preventing RStudio to access the CRAN repositories. As a workaround, you can change secure connection settings. 
 Go to Tools -> Global Options -> Packages-> Management Tab-> Uncheck "Use secure download method for HTTP"
-However, if you prefer to mantain using HTPPS for downloading (recommended), please refer to [this link](https://support.posit.co/hc/en-us/articles/206827897-Secure-Package-Downloads-for-R). 
+However, if you prefer to mantain using HTTPS for downloading (recommended), please refer to [this link](https://support.posit.co/hc/en-us/articles/206827897-Secure-Package-Downloads-for-R). 
 
 ## Usage
 
