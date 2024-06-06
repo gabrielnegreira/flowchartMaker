@@ -54,7 +54,7 @@ However, if you prefer to mantain using HTPPS for downloading (recommended), ple
    - Select the `Flow Chart Maker.R` script and open it.
 
 3. **Run the script:**
-   - press CTRL+A (CMD+A on MAC) to select the whole scritp.
+   - Click on the scrip and press CTRL+A (CMD+A on MAC) to select the whole scritp.
    - Click on the "Run" button in RStudio to execute the script.
    - When you run the script, it will prompt you to select an Excel file. Ensure your Excel file has at least the following three columns:
 
