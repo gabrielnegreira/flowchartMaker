@@ -53,7 +53,7 @@ Go to Tools -> Global Options -> Packages-> Management Tab-> Uncheck "Use secure
    - Select the `Flow Chart Maker.R` script and open it.
 
 3. **Run the script:**
-
+   - press CTRL+A (CMD+A on MAC) to select the whole scritp.
    - Click on the "Run" button in RStudio to execute the script.
    - When you run the script, it will prompt you to select an Excel file. Ensure your Excel file has at least the following three columns:
 
@@ -62,6 +62,7 @@ Go to Tools -> Global Options -> Packages-> Management Tab-> Uncheck "Use secure
       - name: Name or label of the node.
    
    - The HTML file containing the flow chart will be generated in the same directory as the input file.
+   - OBS: In principle the script can be ran from the R GUI, without needing RStudio. However, currently it will not work if ran from terminal, as it requires a GUI environment.
 
 ## Example
 
